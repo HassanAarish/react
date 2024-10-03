@@ -1,8 +1,31 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const Navbar = (props) => {
+  const [myStyle, setMyStyle] = useState({
+    color: "black",
+    background: "white",
+  });
+
+  const [btnText, setBtnText] = useState("Enable Dark Mode");
+
+  const toggleStyle = () => {
+    if (myStyle.color === "black") {
+      setMyStyle({
+        color: "white",
+        background: "black",
+      });
+      setBtnText("Disable Dark Mode");
+    } else {
+      setMyStyle({
+        color: "black",
+        background: "white",
+      });
+      setBtnText("Enable Dark Mode");
+    }
+  };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -38,10 +61,17 @@ const Navbar = (props) => {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-primary" type="submit">
               Search
             </button>
           </form>
+          <button
+            type="button"
+            onClick={toggleStyle}
+            className="btn btn-outline-primary mx-2"
+          >
+            {btnText}
+          </button>
         </div>
       </div>
     </nav>
