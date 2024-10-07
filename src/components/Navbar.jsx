@@ -1,31 +1,10 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 
 const Navbar = (props) => {
-  const [myStyle, setMyStyle] = useState({
-    color: "black",
-    background: "white",
-  });
-
-  const [btnText, setBtnText] = useState("Enable Dark Mode");
-
-  const toggleStyle = () => {
-    if (myStyle.color === "black") {
-      setMyStyle({
-        color: "white",
-        background: "black",
-      });
-      setBtnText("Disable Dark Mode");
-    } else {
-      setMyStyle({
-        color: "black",
-        background: "white",
-      });
-      setBtnText("Enable Dark Mode");
-    }
-  };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -54,7 +33,7 @@ const Navbar = (props) => {
               </a>
             </li>
           </ul>
-          <form className="d-flex">
+          {/* <form className="d-flex">
             <input
               className="form-control me-2"
               type="search"
@@ -64,14 +43,25 @@ const Navbar = (props) => {
             <button className="btn btn-outline-primary" type="submit">
               Search
             </button>
-          </form>
-          <button
-            type="button"
-            onClick={toggleStyle}
-            className="btn btn-outline-primary mx-2"
+          </form> */}
+          <div
+            className={`form-check form-switch text-${
+              props.mode === "light" ? "dark" : "light"
+            }`}
           >
-            {btnText}
-          </button>
+            <input
+              className="form-check-input"
+              onClick={props.toggleMode}
+              type="checkbox"
+              id="flexSwitchCheckDefault"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckDefault"
+            >
+              Dark Mode
+            </label>
+          </div>
         </div>
       </div>
     </nav>
@@ -82,6 +72,6 @@ Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   about: PropTypes.string.isRequired,
 };
-Navbar.defaultProps = { title: "Online Library", about: "About" };
+Navbar.defaultProps = { title: "Text Utilities", about: "About" };
 
 export default Navbar;
