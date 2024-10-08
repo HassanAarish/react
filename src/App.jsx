@@ -1,5 +1,6 @@
 import { useState } from "react";
-// import About from "./components/About";
+import { Routes, Route } from "react-router-dom";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
@@ -35,8 +36,14 @@ function App() {
       <Navbar mode={mode} toggleMode={toggleMode} />
       <Alert alert={alert} />
       <div className="container my-3">
-        <TextForm mode={mode} />
-        {/* <About /> */}
+        <Routes>
+          <Route exact path="/about" element={<About />} />
+          <Route
+            exact
+            path="/"
+            element={<TextForm showAlert={showAlert} mode={mode} />}
+          />
+        </Routes>
       </div>
     </div>
   );
